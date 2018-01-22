@@ -21,6 +21,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { TrackOrderComponent } from './track-order/track-order.component';
 
 
 
@@ -34,7 +35,8 @@ import { isPlatformBrowser } from '@angular/common';
     LogoutComponent,
     AccountComponent,
     AdminComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TrackOrderComponent
   ],
   imports: [
     RoutingModule,
