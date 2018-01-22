@@ -6,6 +6,7 @@ import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CatService } from './services/cat.service';
 import { UserService } from './services/user.service';
+import { TrackService } from './services/track.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -48,6 +49,7 @@ import { TrackOrderComponent } from './track-order/track-order.component';
     AuthGuardLogin,
     AuthGuardAdmin,
     CatService,
+    TrackService,
     UserService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

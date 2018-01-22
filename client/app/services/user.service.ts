@@ -12,6 +12,10 @@ export class UserService {
   register(user: User): Observable<User> {
     return this.http.post<User>('/api/user', user);
   }
+//track
+  track(user: User): Observable<User> {
+    return this.http.post<User>('/api/user', user);
+  }
 
   login(credentials): Observable<any> {
     return this.http.post<any>('/api/login', credentials);

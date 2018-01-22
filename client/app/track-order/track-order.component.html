@@ -1,3 +1,26 @@
-<p>
-  track-order works!
-</p>
+<div class="row">
+    <div class="col s6">
+        <app-toast [message]="toast.message"></app-toast>
+  
+        <div class="card">
+          <h4 class="card-header">Track your device</h4>
+          <div class="">
+              <br>
+            <form [formGroup]="trackForm" (ngSubmit)="track()">
+              <div class="input-field col s6">
+                <input placeholder="Job Order No" id="job_order_no" type="text" class="validate">
+                <label for="job_order_no">Job Order No:</label>
+              </div>
+              <div class="input-field">
+                  <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-user-plus"></i>
+                     Track
+                  </button>
+              </div>
+              <br><br><br>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+  
