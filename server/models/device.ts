@@ -14,9 +14,8 @@ const deviceSchema = new mongoose.Schema({
   other_details: String,
   registered_by: String,
   engineer_in_charge: String,
-  date_for_collection: String,
+  date_for_collection: String,//Should be Date
   status: String,
-  pick_up_time: Date,
 });
 
 const Device = mongoose.model('Device', deviceSchema);

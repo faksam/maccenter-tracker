@@ -56,6 +56,7 @@ abstract class BaseCtrl {
       res.sendStatus(200);
     });
   }
+
 }
 
 export default BaseCtrl;

@@ -1,26 +1,157 @@
-<div class="row">
-    <div class="col s6">
-        <app-toast [message]="toast.message"></app-toast>
-  
-        <div class="card">
-          <h4 class="card-header">Track your device</h4>
-          <div class="">
-              <br>
-            <form [formGroup]="trackForm" (ngSubmit)="track()">
-              <div class="input-field col s6">
-                <input placeholder="Job Order No" id="job_order_no" type="text" class="validate">
-                <label for="job_order_no">Job Order No:</label>
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" *ngIf="!isLoading">
+  <h4 class="card-header">Current devices ({{devices.length}})</h4>
+  <div class="card-block">
+    <table class="responsive-table bordered highlight centered">
+      <thead>
+        <tr>
+          <th>Customer Name</th>
+          <th>Phone No</th>
+          <th>Date Registered</th>
+          <th>Device details</th>
+          <th>Fault reported</th>
+          <th>Engineer in charge</th>
+          <th>Date for collection</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="devices.length === 0">
+        <tr>
+          <td colspan="4">There are no devices in the DB. Add a new device below.</td>
+        </tr>  
+      </tbody>
+      <tbody *ngIf="!isEditing">
+        <tr *ngFor="let device of devices">
+          <td>{{device.customer_name}}</td>
+          <td>{{device.phone_no}}</td>
+          <td>{{device.date_registion | date:'yyyy-MM-dd'}}</td>
+          <td>{{device.device_details}}</td>
+          <td>{{device.fault_reported}}</td>
+          <td>{{device.engineer_in_charge}}</td>
+          <td>{{device.date_for_collection}}</td>
+          <td>{{device.status}}</td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="enableEditing(device)"><i class="fa fa-pencil"></i> Edit</button> 
+            <br><br>
+            <button class="btn btn-sm btn-danger" (click)="deleteDevice(device)"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>  
+      </tbody>
+      <tbody *ngIf="isEditing">
+        <tr>
+          <td colspan="4">
+            <form class="form-inline" #form="ngForm" (ngSubmit)="editDevice(device)" style="display:inline">
+              <div class="form-group">
+                <input class="form-control" type="text" name="job_card_no" [(ngModel)]="device.job_card_no" placeholder="Job Card No" required>
               </div>
-              <div class="input-field">
-                  <button class="btn btn-primary" type="submit">
-                    <i class="fa fa-user-plus"></i>
-                     Track
-                  </button>
+              <div class="form-group">
+                <input class="form-control" type="text" name="customer_name" [(ngModel)]="device.customer_name" placeholder="Customer Name" required>
               </div>
-              <br><br><br>
+              <div class="form-group">
+                <input class="form-control" type="text" name="phone_no" [(ngModel)]="device.phone_no" placeholder="Customer Phone No" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="customer_address" [(ngModel)]="device.customer_address" placeholder="Customer Address" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="email" [(ngModel)]="device.email" placeholder="Customer Email" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="date" name="date_registion" [(ngModel)]="device.date_registion" placeholder="Date Registered" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="serial_no" [(ngModel)]="device.serial_no" placeholder="Serial No" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="machine_type" [(ngModel)]="device.machine_type" placeholder="Machine Type" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="device_details" [(ngModel)]="device.device_details" placeholder="Device Details" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="fault_reported" [(ngModel)]="device.fault_reported" placeholder="Fault Reported" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="other_details" [(ngModel)]="device.other_details" placeholder="Other Details" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="registered_by" [(ngModel)]="device.registered_by" placeholder="Registered by" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="engineer_in_charge" [(ngModel)]="device.engineer_in_charge" placeholder="Engineer in charge" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="date_for_collection" [(ngModel)]="device.date_for_collection" placeholder="Date for collection" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="status" [(ngModel)]="device.status" placeholder="Status" required>
+              </div>
+
+              <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
             </form>
-          </div>
-        </div>
-    </div>
+            <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+</div>
+
+<div class="card" *ngIf="!isEditing">
+  <h4 class="card-header">Add new device</h4>
+  <div class="card-block">
+    <form class="form-inline" [formGroup]="addDeviceForm" (ngSubmit)="addDevice()" style="text-align:center">
+      <div class="form-group">
+        <input class="form-control" type="text" name="job_card_no" value="Iam FakSam" formControlName="job_card_no" placeholder="Job Card No" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="customer_name" value="Iam FakSam" formControlName="customer_name" placeholder="Customer Name" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="phone_no" value="Iam FakSam" formControlName="phone_no" placeholder="Customer Phone No" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="customer_address" value="Iam FakSam" formControlName="customer_address" placeholder="Customer Address" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="email" value="Iam FakSam" formControlName="email" placeholder="Customer Email" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="date_registion" value="Iam FakSam" formControlName="date_registion" placeholder="Date Registered" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="serial_no" value="Iam FakSam" formControlName="serial_no" placeholder="Serial No" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="machine_type" value="Iam FakSam" formControlName="machine_type" placeholder="Machine Type" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="device_details" value="Iam FakSam" formControlName="device_details" placeholder="Device Details" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="fault_reported" value="Iam FakSam" formControlName="fault_reported" placeholder="Fault Reported" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="other_details" value="Iam FakSam" formControlName="other_details" placeholder="Other Details" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="date" name="registered_by" value="Iam FakSam" formControlName="registered_by" placeholder="Registered by" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="engineer_in_charge" value="Iam FakSam" formControlName="engineer_in_charge" placeholder="Engineer in charge" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="date_for_collection" value="Iam FakSam" formControlName="date_for_collection" placeholder="Date for collection" >
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="status" value="Iam FakSam" formControlName="status" placeholder="Status" >
+      </div>
+      
+
+      <button class="btn btn-primary" type="submit" [disabled]="!addDeviceForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
+    </form>
+  </div>
+</div>

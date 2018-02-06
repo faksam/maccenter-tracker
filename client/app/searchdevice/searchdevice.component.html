@@ -1,0 +1,57 @@
+<p>
+  searchdevice works!
+</p>
+<div class="row">
+  <div class="col s6">
+      <app-toast [message]="toast.message"></app-toast>
+
+      <div class="card">
+        <h4 class="card-header">Track your device</h4>
+        <div class="card-block">
+          <form [formGroup]="searchForm" (ngSubmit)="search()">
+            <div class="input-group" [ngClass]="setClassJobOrderNo()">
+              <input class="form-control" type="text" name="job_order_no" formControlName="job_order_no" placeholder="Job Order No">
+              <label for="job_order_no">Job Order No:</label>
+            </div>
+            <div class="input-field">
+                <button class="btn btn-primary" type="submit" [disabled]="!searchForm.valid"><i class="fa fa-user-plus"></i> Search</button>
+            </div>
+          </form>
+          <br><br><br>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="card">
+    <h4 class="card-header">Your device</h4>
+    <div class="card-block">
+      <table class="responsive-table bordered highlight centered">
+        <thead>
+          <tr>
+            <th>Customer Name</th>
+            <th>Phone No</th>
+            <th>Date Registered</th>
+            <th>Device details</th>
+            <th>Fault reported</th>
+            <th>Engineer in charge</th>
+            <th>Date for collection</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="device">
+            <td>{{device.customer_name}}</td>
+            <td>{{device.phone_no}}</td>
+            <td>{{device.date_registion | date:'yyyy-MM-dd'}}</td>
+            <td>{{device.device_details}}</td>
+            <td>{{device.fault_reported}}</td>
+            <td>{{device.engineer_in_charge}}</td>
+            <td>{{device.date_for_collection}}</td>
+            <td>{{device.status}}</td>
+          </tr>  
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

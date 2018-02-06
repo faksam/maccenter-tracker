@@ -1,17 +1,18 @@
 import * as express from 'express';
 
 import CatCtrl from './controllers/cat';
-import DeviceCtrl from './controllers/device';
+import TrackerCtrl from './controllers/device';
 import UserCtrl from './controllers/user';
 import Cat from './models/cat';
 import User from './models/user';
+import Device from './models/device';
 
 export default function setRoutes(app) {
 
   const router = express.Router();
 
   const catCtrl = new CatCtrl();
-  const deviceCtrl = new DeviceCtrl();
+  const deviceCtrl = new TrackerCtrl();
   const userCtrl = new UserCtrl();
 
   // Cats
@@ -22,11 +23,14 @@ export default function setRoutes(app) {
   router.route('/cat/:id').put(catCtrl.update);
   router.route('/cat/:id').delete(catCtrl.delete);
 
-  // Devices
+  // Trackers
   router.route('/devices').get(deviceCtrl.getAll);
   router.route('/devices/count').get(deviceCtrl.count);
   router.route('/device').post(deviceCtrl.insert);
   router.route('/device/:id').get(deviceCtrl.get);
+  //router.route('/device/search').get(deviceCtrl.get);
+  router.route('/device/track').get(deviceCtrl.track);
+  router.route('/track').post(deviceCtrl.track);
   router.route('/device/:id').put(deviceCtrl.update);
   router.route('/device/:id').delete(deviceCtrl.delete);
 

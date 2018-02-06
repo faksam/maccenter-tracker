@@ -15,5 +15,5 @@ export class Device {
     engineer_in_charge?: string;
     date_for_collection?: string;
     status?: string;
-    pick_up_time?: Date;
+    
   }

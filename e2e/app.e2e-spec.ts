@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('xences App', () => {
+describe('MacCenter App', () => {
   let page: AppPage;
 
   beforeEach(() => {

@@ -10,12 +10,13 @@
     <div class="nav-wrapper">
       <ul>
         <li><a style="color:black;" routerLink="/" class="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+        <li><a style="color:black;" routerLink="/search" class="" routerLinkActive="active" *ngIf="!auth.loggedIn">Search</a></li>
         <li><a style="color:black;" routerLink="/login" class="" routerLinkActive="active" *ngIf="!auth.loggedIn">Login</a></li>
-        <li><a style="color:black;" routerLink="/tracker" class="" routerLinkActive="active" *ngIf="!auth.loggedIn">Track</a></li>
+        <li><a style="color:black;" routerLink="/tracker" class="" routerLinkActive="active" *ngIf="!auth.loggedIn">Jobs</a></li>
         <li><a style="color:black;" routerLink="/cats" class="" routerLinkActive="active" *ngIf="!auth.loggedIn">Cats</a></li>
-        <li><a style="color:black;" routerLink="/register" class="" routerLinkActive="active" *ngIf="!auth.loggedIn">   Register </a></li>
-        <li><a style="color:black;" routerLink="/account" class="" routerLinkActive="active" *ngIf="auth.loggedIn">  Account ({{auth.currentUser.username}})</a></li>
-        <li><a style="color:black;" routerLink="/admin" class="" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin"> Admin</a></li>
+        <li><a style="color:black;" routerLink="/register" class="" routerLinkActive="active" *ngIf="!auth.loggedIn">Register </a></li>
+        <li><a style="color:black;" routerLink="/account" class="" routerLinkActive="active" *ngIf="auth.loggedIn">Account ({{auth.currentUser.username}})</a></li>
+        <li><a style="color:black;" routerLink="/admin" class="" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">Admin</a></li>
         <li><a style="color:black;" routerLink="/logout" class="" routerLinkActive="active" *ngIf="auth.loggedIn">Logout</a></li>
       </ul>
     </div>
@@ -24,3 +25,4 @@
 <div class="row">
   <router-outlet></router-outlet>
 </div>
+
