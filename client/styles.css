@@ -9,5 +9,24 @@ a {
 }
 .input-group {
     margin-bottom: 15px;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
   }
+
+main {
+    flex: 1 0 auto;
+  }
+.content {
+    min-height: 100vh;
+  }
+.page-footer
+{
+    color: white;
+    background-color: rgb(32, 32, 32);
+}
+  
+
   

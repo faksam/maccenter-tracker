@@ -2,7 +2,7 @@
 
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
+<div class="card center" *ngIf="!isLoading">
   <h4 class="card-header">Current devices ({{devices.length}})</h4>
   <div class="card-block">
     <table class="responsive-table bordered highlight centered">
@@ -100,7 +100,7 @@
   </div>
 </div>
 
-<div class="card" *ngIf="!isEditing">
+<div class="card center" *ngIf="!isEditing">
   <h4 class="card-header">Add new device</h4>
   <div class="card-block">
     <form class="form-inline" [formGroup]="addDeviceForm" (ngSubmit)="addDevice()" style="text-align:center">

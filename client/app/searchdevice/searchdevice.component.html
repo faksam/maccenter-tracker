@@ -1,11 +1,8 @@
-<p>
-  searchdevice works!
-</p>
 <div class="row">
-  <div class="col s6">
+  <div class="container">
       <app-toast [message]="toast.message"></app-toast>
 
-      <div class="card">
+      <div class="card center">
         <h4 class="card-header">Track your device</h4>
         <div class="card-block">
           <form [formGroup]="searchForm" (ngSubmit)="search()">
